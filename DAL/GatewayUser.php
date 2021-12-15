@@ -110,7 +110,7 @@ class GatewayUser extends Gateway
      * @param string $email
      * @param string $type
      */
-    protected function insertOneUsr(string $pseudo, string $mdp, string $email, string $type)
+    protected function insertOneUsr(string $pseudo, string $mdp, string $email, $type)
     {
         if ($type == NULL) {
             $req = $this->getBdd()->prepare("INSERT INTO users(pseudo,email,motDePasse) VALUES (?,?,?)");

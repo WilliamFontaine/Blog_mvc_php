@@ -1,4 +1,4 @@
-<?php foreach ($article as $art):
+<body><?php foreach ($article as $art):
     $this->_t = $art->getTitre(); ?>
     <div class="container">
         <h4 class="mt-5 text-center">Page de modification d'un article:</h4>
@@ -32,3 +32,4 @@
         </form>
     </div>
 <?php endforeach; ?>
+</body>

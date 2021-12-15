@@ -9,10 +9,10 @@ class Router
      */
     public function routeReq()
     {
-        $listeAction = ["Visiteur" => ["accueil", "article"],
-            "User" => ["deconnexion", "deleteComment", "pageUser", "connexionUser", "register"],
-            "Ecrivain" => ["addArticle", "deleteArticle", "modifierArticle", "connexionEcrivain"],
-            "Admin" => ["pageAdmin", "connexionAdmin"]];
+        $listeAction = ["Visiteur" => ["accueil", "article", "connexion", "register"],
+            "User" => ["deconnexion", "deleteComment", "pageUser"],
+            "Ecrivain" => ["addArticle", "deleteArticle", "modifierArticle"],
+            "Admin" => ["pageAdmin"]];
 
         try {
 
@@ -36,7 +36,7 @@ class Router
                 }
                 if ($controller == "User") {
                     if (!isset($_SESSION['type'])) {
-                        if($url[0] != "register")
+                        if ($url[0] != "register")
                             $url[0] = "connexionUser";
                     }
                 }

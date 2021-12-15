@@ -30,23 +30,12 @@ class ControllerUser
                 case "formulaireSuppCompte":
                     $this->formulaireSuppCompte();
                     return;
-                case "formulaireInscription":
-                    $this->formulaireInscription();
-                    return;
-                case "validationFormulaireConnexionPseudo":
-                    $this->formulaireConnexionPseudo();
-                    return;
+
             }
         }
         switch ($url[0]) {
-            case "connexionUser":
-                $this->pageConnexionUser();
-                return;
             case "deconnexion":
                 $this->deconnexion();
-                return;
-            case "register":
-                $this->pageRegister();
                 return;
             case "pageUser":
                 $this->pageUser();
@@ -146,6 +135,16 @@ class ControllerUser
     }
 
     /**
+     * Méthode permettant de vérifier le formulaire de suppression d'un compte et de faire le travail demandé.
+     */
+    private function formulaireSuppCompte()
+    {
+        $this->_manager = new UserManager;
+        $this->deconnexion();
+        $this->_manager->SupprimerCompte(Nettoyage::CleanChaineCarar($_SESSION['userId']));
+    }
+
+    /**
      * Méthode de déconnexion d'un utilisateur, quel que soit son rôle.
      */
     private function deconnexion()
@@ -153,7 +152,6 @@ class ControllerUser
         session_unset();
         session_destroy();
         $_SESSION = array();
-        Autoloader::shutDown();
         header("Location: index.php");
     }
 
@@ -171,77 +169,6 @@ class ControllerUser
     }
 
     /**
-     * Méthode permettant de vérifier le formulaire de suppression d'un compte et de faire le travail demandé.
-     */
-    private function formulaireSuppCompte()
-    {
-        $this->_manager = new UserManager;
-        $this->deconnexion();
-        $this->_manager->SupprimerCompte(Nettoyage::CleanChaineCarar($_SESSION['userId']));
-    }
-
-    /**
-     * Méthode permettant d'instancier une page de connexion d'utilisateur.
-     * @param null $dVueErreur
-     */
-    private function pageConnexionUser($dVueErreur = NULL)
-    {
-        $this->_view = new View('Login');
-        if ($dVueErreur == NULL) {
-            $this->_view->generateEmpty(['dVueErreur' => NULL]);
-        } else {
-            $this->_view->generateEmpty(['dVueErreur' => $dVueErreur]);
-        }
-    }
-
-    /**
-     * Méthode permettant d'instancier une page d'inscription.
-     */
-    private function pageRegister($dVueErreur = NULL)
-    {
-        $this->_view = new View('Register');
-        if ($dVueErreur == NULL)
-            $this->_view->generateEmpty(['dVueErreur' => NULL]);
-        else
-            $this->_view->generateEmpty(['dVueErreur' => $dVueErreur]);
-    }
-
-    /**
-     * Méthode qui permet de valider le formulaire d'inscription.
-     */
-    private function formulaireInscription()
-    {
-        $dVueErreur = [];
-        $pseudo = $_POST['txtNom'];
-        $email = $_POST['txtEmail'];
-        $mdp = $_POST['txtMdp'];
-        $mdpConfirm = $_POST['txtMdpConfirm'];
-        $this->_manager = new UserManager();
-        if ($mdp == $mdpConfirm) {
-            ValidationRegister::val_form($pseudo, $email, $mdp, $dVueErreur);
-            if (!empty($dVueErreur)) {
-                $this->pageRegister($dVueErreur);
-            } elseif ($this->_manager->exist("email", $email)) {
-                $dVueErreur = "Un utilisateur possède déjà cette email.";
-                $this->pageRegister($dVueErreur);
-            } elseif ($this->_manager->exist("pseudo", $pseudo)) {
-                $dVueErreur = "Un utilisateur possède déjà ce pseudo.";
-                $this->pageRegister($dVueErreur);
-
-            } else {
-                $this->_manager->insertOneUser($pseudo, $mdp, $email, NULL);
-                $dVueSuccess = ["Inscription réussi, veuillez maintenant vous connecter."];
-                $this->connexionAfterSuccesRegister($dVueSuccess);
-            }
-        } else {
-            $dVueErreur = "Les deux mots de passes ne correspondent pas";
-            $this->pageRegister($dVueErreur);
-        }
-    }
-
-
-
-    /**
      * Méthode permettant d'instancier une page de connexion avec un pessage de succès après le bon enregistrement d'un utilisateur.
      * @param $dVueSuccess
      */
@@ -249,33 +176,5 @@ class ControllerUser
     {
         $this->_view = new View('Login');
         $this->_view->generateEmpty(['dVueSuccess' => $dVueSuccess]);
-    }
-
-
-    /**
-     * Méthode permettant de vérifier le formulaire de connexion d'un utilisateur.
-     * Quel que soit le rôle de la personne qui se connecte, elle era connecté en 'user'.
-     * Son rôle natif étant conservé en base de données.
-     * @throws Exception
-     */
-    private function formulaireConnexionPseudo()
-    {
-        $dVueErreur = [];
-        $nom = $_POST['txtNom'];
-        $mdp = $_POST['txtMdp'];
-        $this->_manager = new UserManager;
-        ValidationLogin::val_form($nom, $mdp, $dVueErreur);
-        if (!empty($dVueErreur)) {
-            $this->pageConnexionUser($dVueErreur);
-        } else if ($this->_manager->trouverUserParPseudo($nom, $mdp)) {
-            $user = $this->_manager->getOneUser("pseudo", $nom);
-            $_SESSION['username'] = $user[0]->getPseudo();
-            $_SESSION['type'] = 'user';
-            $_SESSION['userId'] = $user[0]->getId();
-            header("Location: index.php");
-        } else {
-            $dVueErreur = "Le mot de passe de le pseudo ne correspondent pas !";
-            $this->pageConnexionUser($dVueErreur);
-        }
     }
 }

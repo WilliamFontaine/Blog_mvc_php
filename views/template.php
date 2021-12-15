@@ -8,7 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="<?php global $dir, $style; echo $dir . $style['erreur'] ?>">
+    <link rel="stylesheet" href="<?php global $dir, $style;
+    echo $dir . $style['erreur'] ?>">
 </head>
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -27,7 +28,7 @@
                         if (isset($_SESSION['username'])) {
                             echo "?url=pageUser";
                         } else {
-                            echo "?url=connexionUser";
+                            echo "?url=connexion";
                         } ?>
                         "><?php
                             if (isset($_SESSION['username'])) {
@@ -51,7 +52,8 @@
                        href="index.php?url=deconnexion">Deconnexion</a>
                 <?php endif; ?>
                 <form class="d-flex" method="post">
-                    <input class="form-control me-2" name="txtTitre" type="text" placeholder="Votre recherche" aria-label="Votre recherche">
+                    <input class="form-control me-2" name="txtTitre" type="text" placeholder="Votre recherche"
+                           aria-label="Votre recherche">
                     <input type="submit" name="submit" class="btn btn-outline-info" value="rechercher">
                     <input type="hidden" name="action" value="formulaireRechercheArticle">
                 </form>

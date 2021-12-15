@@ -2,13 +2,6 @@
 
 class ValidationLogin
 {
-
-    /**
-     * Fonction qui vérifie la bonne insertion des données lors de la connexion
-     * @param $nom
-     * @param $mdp
-     * @param $dataVueErreur
-     */
     static function val_form(&$nom, &$mdp, &$dataVueErreur)
     {
         if (!isset($nom) || $nom == "") {

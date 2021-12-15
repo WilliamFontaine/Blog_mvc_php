@@ -80,8 +80,8 @@ class GatewayArticle extends Gateway
     {
         $var = [];
         $req = $this->getBdd()->prepare("SELECT * FROM articles WHERE titre LIKE ?");
-        $req->execute(["%".$titre."%"]);
-        while ($data = $req->fetch(PDO::FETCH_ASSOC)){
+        $req->execute(["%" . $titre . "%"]);
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
             $var[] = new Article($data);
         }
         $req->closeCursor();

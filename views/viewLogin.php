@@ -19,23 +19,13 @@
 <div class="container rounded">
 
     <div class="box rounded text-center">
-        <h1 class="box-title">Page de connexion <?php
-            switch (Nettoyage::CleanChaineCarar($_GET['url'])){
-                case "connexionUser":
-                    echo "utilisateur";
-                    break;
-                case "connexionEcrivain":
-                    echo "écrivain";
-                    break;
-                case "connexionAdmin":
-                    echo "administrateur";
-            }
-        ?></h1>
-        <form  method="post">
+        <h1 class="box-title">Page de connexion</h1>
+        <form method="post">
             <label for="nom"></label>
             <input id="nom" type="text" placeholder="Pseudo" name="txtNom" class="box-input form-control" required/>
             <label for="password"></label>
-            <input id="password" type="password" placeholder="Mot de passe" name="txtMdp" class="box-input form-control" required/>
+            <input id="password" type="password" placeholder="Mot de passe" name="txtMdp" class="box-input form-control"
+                   required/>
             <input type="reset" class="box-button" value="Effacer"/>
             <input type="submit" name="submit" class="box-button" value="Connexion"/>
             <p class="box-register">Vous êtes nouveau ici? <a href="?url=register">S'inscrire</a></p>
@@ -57,11 +47,7 @@
             <?php endif; ?>
         </form>
     </div>
-    <div class="text-center">
-        <a href="?url=connexionUser" class="m-2">se connecter en tant qu'utilisateur</a>
-        <a href="?url=connexionEcrivain" class="m-2">se connecter en tant qu'écrivain</a>
-        <a href="?url=connexionAdmin" class="m-2">se connecter en tant qu'administrateur</a>
-    </div>
+
 </div>
 </body>
 </html>

@@ -1,3 +1,4 @@
+<body>
 <?php $this->_t = "Page d'utilisateur"; ?>
 <div class="container">
     <br>
@@ -22,7 +23,8 @@
                 <label for="inputPseudo" class="col-form-label">Pseudo</label>
             </div>
             <div class="col-7">
-                <input id="inputPseudo" type="text" placeholder="<?= Nettoyage::CleanChaineCarar($_SESSION['username']) ?>" name="txtNom"
+                <input id="inputPseudo" type="text"
+                       placeholder="<?= Nettoyage::CleanChaineCarar($_SESSION['username']) ?>" name="txtNom"
                        class="form-control">
             </div>
         </div>
@@ -61,16 +63,21 @@
         <input type="hidden" name="action" value="formulaireModifMdp">
     </form>
     <hr>
-    <?php if(isset($_SESSION['type']) and Nettoyage::CleanChaineCarar($_SESSION['type']) != "super-admin"): ?>
-    <div class="mt-5">
-        <form method="post">
-            <div class="row justify-content-center">
-                <div class="col-auto">
-                    <input type="submit" name="submit" class="btn btn-outline-danger" value="Supprimer le compte">
+    <?php if (isset($_SESSION['type']) and Nettoyage::CleanChaineCarar($_SESSION['type']) != "super-admin"): ?>
+        <div class="mt-5">
+            <form method="post">
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <input type="submit" name="submit" class="btn btn-outline-danger" value="Supprimer le compte">
+                    </div>
                 </div>
-            </div>
-            <input type="hidden" name="action" value="formulaireSuppCompte">
-        </form>
+                <input type="hidden" name="action" value="formulaireSuppCompte">
+            </form>
+        </div>
+    <?php else: ?>
+    <div class="mt-5 text-center">
+        <p style="color: lightgray">Vous ne pouvez pas supprimer votre compte en tant que super-admin !</p>
     </div>
     <?php endif; ?>
 </div>
+</body>

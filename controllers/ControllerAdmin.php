@@ -21,18 +21,12 @@ class ControllerAdmin
                 case "formulaireCreerUser":
                     $this->formulaireCreerUser();
                     return;
-                case "validationFormulaireConnexionPseudo":
-                    $this->formulaireConnexionPseudo();
-                    return;
             }
         }
         if (isset($url[0])) {
             switch ($url[0]) {
                 case "pageAdmin":
                     $this->pageAdmin();
-                    return;
-                case "connexionAdmin":
-                    $this->pageConnexionAdmin();
                     return;
             }
         }
@@ -100,48 +94,5 @@ class ControllerAdmin
             $this->_view->generate(['dVueSuccess' => NULL]);
         else
             $this->_view->generate(['dVueSuccess' => $dVueSuccess]);
-    }
-
-    /**
-     * Méthode permettant d'instancier une page de connexion d'administrateur
-     * @param null $dVueErreur
-     */
-    private function pageConnexionAdmin($dVueErreur = NULL)
-    {
-        $this->_view = new View('Login');
-        if ($dVueErreur == NULL) {
-            $this->_view->generateEmpty(['dVueErreur' => NULL]);
-        } else {
-            $this->_view->generateEmpty(['dVueErreur' => $dVueErreur]);
-        }
-    }
-
-    /**
-     * Méthode qui permet de vérifier le formulaire de connexion.
-     * Il vérifie si l'utilisateur qui essaie de se connecter à bien le rôle admin ou super-admin, dans le cas inverse, il renvoie une erreur.
-     * @throws Exception
-     */
-    private function formulaireConnexionPseudo()
-    {
-        $dVueErreur = [];
-        $nom = $_POST['txtNom'];
-        $mdp = $_POST['txtMdp'];
-        $this->_manager = new UserManager;
-        ValidationLogin::val_form($nom, $mdp, $dVueErreur);
-        if (!empty($dVueErreur)) {
-            $this->pageConnexionAdmin($dVueErreur);
-        } else if ($this->_manager->trouverUserParPseudo($nom, $mdp)) {
-            $user = $this->_manager->getOneUser("pseudo", $nom);
-            if ($user[0]->getType() != "admin" and $user[0]->getType() != "super-admin") {
-                throw new Exception("Vous n'avez pas les permissions nécéssaires pour effectuer cette action !");
-            }
-            $_SESSION['username'] = $user[0]->getPseudo();
-            $_SESSION['type'] = $user[0]->getType();
-            $_SESSION['userId'] = $user[0]->getId();
-            header("Location: index.php");
-        } else {
-            $dVueErreur = "Le mot de passe de le pseudo ne correspondent pas !";
-            $this->pageConnexionAdmin($dVueErreur);
-        }
     }
 }

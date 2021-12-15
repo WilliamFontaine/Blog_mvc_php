@@ -2,14 +2,6 @@
 
 class ValidationRegister
 {
-
-    /**
-     * Fonction qui vérifie la bonne insertion des données lors de l'inscription
-     * @param $nom
-     * @param $email
-     * @param $mdp
-     * @param $dataVueErreur
-     */
     static function val_form(&$nom, &$email, &$mdp, &$dataVueErreur)
     {
         if (!isset($nom) || $nom == "") {

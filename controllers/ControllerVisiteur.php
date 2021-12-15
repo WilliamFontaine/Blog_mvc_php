@@ -24,6 +24,12 @@ class ControllerVisiteur
                 case "formulaireRechercheArticle":
                     $this->pageArticleRecherchee();
                     return;
+                case "formulaireInscription":
+                    $this->formulaireInscription();
+                    return;
+                case "validationFormulaireConnexionPseudo":
+                    $this->formulaireConnexionPseudo();
+                    return;
             }
         }
         if (isset($_GET['id'])) {
@@ -32,6 +38,12 @@ class ControllerVisiteur
         }
         if (isset($url[0])) {
             switch ($url[0]) {
+                case "register":
+                    $this->pageRegister();
+                    return;
+                case "connexion":
+                    $this->pageConnexion();
+                    return;
                 default:
                     $this->pageAccueil();
                     return;
@@ -86,18 +98,6 @@ class ControllerVisiteur
     }
 
     /**
-     * Méthode permettant d'instancier la page d'accueil avec tous les articles de la base de données.
-     * @throws Exception
-     */
-    private function pageAccueil()
-    {
-        $this->_manager = new ArticleManager;
-        $articles = $this->_manager->getArticle();
-        $this->_view = new View('Accueil');
-        $this->_view->generate(['articles' => $articles]);
-    }
-
-    /**
      * Méthode permettant d'instancier une page avec les articles correspondants à la recherche.
      * @throws Exception
      */
@@ -107,6 +107,112 @@ class ControllerVisiteur
         $this->_manager = new ArticleManager;
         ValidationArticle::val_formRecherche($titre);
         $articles = $this->_manager->rechercheArticle($titre);
+        $this->_view = new View('Accueil');
+        $this->_view->generate(['articles' => $articles]);
+    }
+
+    /**
+     * Méthode qui permet de valider le formulaire d'inscription.
+     */
+    private function formulaireInscription()
+    {
+        $dVueErreur = [];
+        $pseudo = $_POST['txtNom'];
+        $email = $_POST['txtEmail'];
+        $mdp = $_POST['txtMdp'];
+        $mdpConfirm = $_POST['txtMdpConfirm'];
+        $this->_manager = new UserManager();
+        if ($mdp == $mdpConfirm) {
+            ValidationRegister::val_form($pseudo, $email, $mdp, $dVueErreur);
+            if (!empty($dVueErreur)) {
+                $this->pageRegister($dVueErreur);
+            } elseif ($this->_manager->exist("email", $email)) {
+                $dVueErreur = "Un utilisateur possède déjà cette email.";
+                $this->pageRegister($dVueErreur);
+            } elseif ($this->_manager->exist("pseudo", $pseudo)) {
+                $dVueErreur = "Un utilisateur possède déjà ce pseudo.";
+                $this->pageRegister($dVueErreur);
+
+            } else {
+                $this->_manager->insertOneUser($pseudo, $mdp, $email);
+                $dVueSuccess = ["Inscription réussi, veuillez maintenant vous connecter."];
+                $this->connexionAfterSuccesRegister($dVueSuccess);
+            }
+        } else {
+            $dVueErreur = "Les deux mots de passes ne correspondent pas";
+            $this->pageRegister($dVueErreur);
+        }
+    }
+
+    /**
+     * Méthode permettant d'instancier une page d'inscription.
+     */
+    private function pageRegister($dVueErreur = NULL)
+    {
+        $this->_view = new View('Register');
+        if ($dVueErreur == NULL)
+            $this->_view->generateEmpty(['dVueErreur' => NULL]);
+        else
+            $this->_view->generateEmpty(['dVueErreur' => $dVueErreur]);
+    }
+
+    /**
+     * Méthode permettant d'instancier une page de connexion avec un pessage de succès après le bon enregistrement d'un utilisateur.
+     * @param $dVueSuccess
+     */
+    private function connexionAfterSuccesRegister($dVueSuccess)
+    {
+        $this->_view = new View('Login');
+        $this->_view->generateEmpty(['dVueSuccess' => $dVueSuccess]);
+    }
+
+    /**
+     * Méthode permettant de vérifier le formulaire de connexion d'un utilisateur.
+     * @throws Exception
+     */
+    private function formulaireConnexionPseudo()
+    {
+        $dVueErreur = [];
+        $nom = $_POST['txtNom'];
+        $mdp = $_POST['txtMdp'];
+        $this->_manager = new UserManager;
+        ValidationLogin::val_form($nom, $mdp, $dVueErreur);
+        if (!empty($dVueErreur)) {
+            $this->pageConnexion($dVueErreur);
+        } else if ($this->_manager->trouverUserParPseudo($nom, $mdp)) {
+            $user = $this->_manager->getOneUser("pseudo", $nom);
+            $_SESSION['username'] = $user[0]->getPseudo();
+            $_SESSION['type'] = $user[0]->getType();
+            $_SESSION['userId'] = $user[0]->getId();
+            header("Location: index.php");
+        } else {
+            $dVueErreur = "Le mot de passe de le pseudo ne correspondent pas !";
+            $this->pageConnexion($dVueErreur);
+        }
+    }
+
+    /**
+     * Méthode permettant d'instancier une page de connexion d'utilisateur.
+     * @param null $dVueErreur
+     */
+    private function pageConnexion($dVueErreur = NULL)
+    {
+        $this->_view = new View('Login');
+        if ($dVueErreur == NULL) {
+            $this->_view->generateEmpty(['dVueErreur' => NULL]);
+        } else {
+            $this->_view->generateEmpty(['dVueErreur' => $dVueErreur]);
+        }
+    }
+
+    /**
+     * Méthode permettant d'instancier la page d'accueil avec tous les articles de la base de données.
+     * @throws Exception
+     */
+    private function pageAccueil()
+    {
+        $this->_manager = new ArticleManager;
+        $articles = $this->_manager->getArticle();
         $this->_view = new View('Accueil');
         $this->_view->generate(['articles' => $articles]);
     }

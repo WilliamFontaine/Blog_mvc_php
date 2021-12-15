@@ -1,6 +1,20 @@
 <?php $this->_t = "Page d'administrateur"; ?>
 <div class="container">
     <br>
+    <?php if (isset($dVueErreur)): ?>
+        <?php foreach ((array)$dVueErreur as $erreur): ?>
+            <div class="alert alert-danger" role="alert">
+                <?= $erreur ?>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+    <?php if (isset($dVueSuccess)): ?>
+        <?php foreach ((array)$dVueSuccess as $success): ?>
+            <div class="alert alert-success" role="alert">
+                <?= $success ?>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
     <form method="post">
         <h4 class="mb-5 text-center">Créer un utilisateur:</h4>
         <div class="row mb-5">
@@ -64,19 +78,5 @@
         </div>
     </form>
     <div class="mt-5">
-        <?php if (isset($dVueErreur)): ?>
-            <?php foreach ((array)$dVueErreur as $erreur): ?>
-                <div class="alert alert-danger" role="alert">
-                    <?= $erreur ?>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
-        <?php if (isset($dVueSuccess)): ?>
-            <?php foreach ((array)$dVueSuccess as $success): ?>
-                <div class="alert alert-success" role="alert">
-                    <?= $success ?>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
     </div>
 </div>

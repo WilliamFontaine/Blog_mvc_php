@@ -1,3 +1,4 @@
+<body>
 <?php $this->_t = "Ecrire un article"; ?>
 <div class="container">
     <form method="post">
@@ -28,3 +29,4 @@
         <input type="hidden" name="action" value="formulaireAddArticle">
     </form>
 </div>
+</body>

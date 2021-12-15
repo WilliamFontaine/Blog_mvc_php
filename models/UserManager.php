@@ -55,7 +55,7 @@ class UserManager extends GatewayUser
      * @param string $email
      * @param $type
      */
-    public function insertOneUser(string $pseudo, string $mdp, string $email, $type)
+    public function insertOneUser(string $pseudo, string $mdp, string $email, $type = NULL)
     {
         $this->insertOneUsr($pseudo, $mdp, $email, $type);
     }

@@ -47,7 +47,7 @@ class GatewayComment extends Gateway
             $req->execute([$pseudo, $typeAuteur, $idArticle, $comment]);
         } else {
             $req = $this->getBdd()->prepare("INSERT INTO comments(pseudoAuteur,typeAuteur,idArticle,comment) VALUES (?,?,?,?)");
-            $req->execute([$pseudo,"visiteur", $idArticle, $comment]);
+            $req->execute([$pseudo, "visiteur", $idArticle, $comment]);
 
         }
     }

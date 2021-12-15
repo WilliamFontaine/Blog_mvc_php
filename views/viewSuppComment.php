@@ -1,3 +1,4 @@
+<body>
 <?php $this->_t = "Suppression de commentaire";
 foreach ($comm as $com): ?>
     <div class="container">
@@ -38,3 +39,4 @@ foreach ($comm as $com): ?>
         <hr>
     </div>
 <?php endforeach; ?>
+</body>

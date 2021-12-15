@@ -1,4 +1,4 @@
-<?php foreach ($article as $art):
+<body><?php foreach ($article as $art):
     $this->_t = $art->getTitre(); ?>
     <div class="container">
         <div class="mt-5">
@@ -48,3 +48,4 @@
     </div>
 
 <?php endforeach; ?>
+</body>

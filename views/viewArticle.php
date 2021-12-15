@@ -1,3 +1,4 @@
+<body>
 <?php foreach ($article as $art): ?>
     <div class="container mt-5">
         <h2>Article : <?= $art->getTitre() ?> </h2>
@@ -74,14 +75,16 @@
         <h3 class="mb-5">Commentaires :</h3>
         <?php foreach ($comments as $comm): ?>
             <div class="container">
-                <p class="mb-4" style="font-size: 18px">(<em><?= $comm->getTypeAuteur() ?></em>) <i><?= $comm->getPseudoAuteur() ?></i>,
+                <p class="mb-4" style="font-size: 18px">(<em><?= $comm->getTypeAuteur() ?></em>)
+                    <i><?= $comm->getPseudoAuteur() ?></i>,
                     le <?= $comm->getDate() ?>.</p>
                 <p style="font-size: 18px">Commentaire: <?= $comm->getComment() ?></p>
             </div>
             <?php if (isset($_SESSION['username']) and isset($_SESSION['type']) and (Nettoyage::CleanChaineCarar($_SESSION['type']) == "admin" or Nettoyage::CleanChaineCarar($_SESSION['type']) == "super-admin" or Nettoyage::CleanChaineCarar($_SESSION['username']) == $comm->getPseudoAuteur())): ?>
                 <div class="row justify-content-center">
                     <div class="col-auto">
-                        <a href="?url=deleteComment&id=<?= $comm->getId() ?>" class="btn btn-outline-danger mt-5">Supprimer le commentaire</a>
+                        <a href="?url=deleteComment&id=<?= $comm->getId() ?>" class="btn btn-outline-danger mt-5">Supprimer
+                            le commentaire</a>
                     </div>
                 </div>
             <?php endif; ?>
@@ -89,3 +92,4 @@
         <?php endforeach;
     endif; ?>
 </div>
+</body>

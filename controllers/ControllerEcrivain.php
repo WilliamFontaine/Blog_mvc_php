@@ -27,9 +27,6 @@ class ControllerEcrivain
                 case "formulaireAddArticle":
                     $this->formulaireAddArticle();
                     return;
-                case "validationFormulaireConnexionPseudo":
-                    $this->formulaireConnexionPseudo();
-                    return;
             }
         }
         if (isset($url[0])) {
@@ -43,10 +40,9 @@ class ControllerEcrivain
                 case "deleteArticle":
                     $this->pageDeleteArticle();
                     return;
-                case "connexionEcrivain":
-                    $this->pageConnexionEcrivain();
             }
         }
+        throw new Exception("L'action requise est inconnue ou la page recherchée n'existe pas.");
     }
 
     /**
@@ -59,7 +55,7 @@ class ControllerEcrivain
         $titre = $_POST['txtTitre'];
         $contenu = $_POST['txtCotenu'];
         $this->_manager = new ArticleManager;
-        ValidationArticle::val_form($this, $contenu, $dVueErreur);
+        ValidationArticle::val_form($titre, $contenu, $dVueErreur);
         if (!empty($dVueErreur)) {
             $this->pageModifierArticle($dVueErreur[0]);
         } else {
@@ -153,51 +149,5 @@ class ControllerEcrivain
         $this->_view = new View("SuppArticle");
 
         $this->_view->generate(['article' => $article]);
-    }
-
-    /**
-     * Méthode qui créé un page de connexion d'écrivain.
-     * @param null $dVueErreur
-     */
-    private function pageConnexionEcrivain($dVueErreur = NULL)
-    {
-        $this->_view = new View('Login');
-        if ($dVueErreur == NULL) {
-            $this->_view->generateEmpty(['dVueErreur' => NULL]);
-        } else {
-            $this->_view->generateEmpty(['dVueErreur' => $dVueErreur]);
-        }
-    }
-
-    /**
-     * Méthode qui vérifie le formulaire de connexion de la page de connexion d'un écrivain.
-     * Il faut au moins avoir le rôle écrivain pour que cette méthode ne renvoie pas d'exception.
-     * Un utilisateur normal ne peut donc pas se connecter en tant qu'écrivain.
-     * Les admiinistrateurs et super-admins essayant de se connecter avec cette page verront leur rôle passer à ecrivain temporairement,
-     * ils pourront toujours se connecter en tant qu'admin et super-admin ultérieurement.
-     * @throws Exception
-     */
-    private function formulaireConnexionPseudo()
-    {
-        $dVueErreur = [];
-        $nom = $_POST['txtNom'];
-        $mdp = $_POST['txtMdp'];
-        $this->_manager = new UserManager;
-        ValidationLogin::val_form($nom, $mdp, $dVueErreur);
-        if (!empty($dVueErreur)) {
-            $this->pageConnexionEcrivain($dVueErreur);
-        } else if ($this->_manager->trouverUserParPseudo($nom, $mdp)) {
-            $user = $this->_manager->getOneUser("pseudo", $nom);
-            if($user[0]->getType() == "user"){
-                throw new Exception("Vous n'avez pas les permissions nécéssaires pour effectuer cette action !");
-            }
-            $_SESSION['username'] = $user[0]->getPseudo();
-            $_SESSION['type'] = 'ecrivain';
-            $_SESSION['userId'] = $user[0]->getId();
-            header("Location: index.php");
-        } else {
-            $dVueErreur = "Le mot de passe de le pseudo ne correspondent pas !";
-            $this->pageConnexionEcrivain($dVueErreur);
-        }
     }
 }

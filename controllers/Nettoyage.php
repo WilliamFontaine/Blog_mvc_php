@@ -7,7 +7,8 @@ class Nettoyage
      * @param $chaine
      * @return mixed
      */
-    public static function CleanChaineCarar($chaine){
+    public static function CleanChaineCarar($chaine)
+    {
         return filter_var($chaine, FILTER_SANITIZE_STRING);
     }
 }

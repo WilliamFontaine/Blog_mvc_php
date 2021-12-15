@@ -16,13 +16,10 @@ class ValidationArticle
             $dataVueErreur[] = "Le mot de passe doit être renseigné.";
             $contenu = "";
         }
-//        if ($contenu != filter_var($contenu, FILTER_SANITIZE_STRING)) {
-//            $dataVueErreur[] = "Tentative d(injection de code.";
-//            $contenu = "";
-//        }
     }
 
-    static function val_formRecherche(&$titre){
+    static function val_formRecherche(&$titre)
+    {
         if (!isset($titre) || $titre == "") {
             $titre = "";
             throw new Exception("Le pseudo doit être renseigné.");
