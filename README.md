@@ -16,7 +16,7 @@
 1. Les visiteurs:  
 Un visiteur est une personne visitant le site sans se connecter, il peut consulter le site et commenter des articles.  
 
-2. Les utilisateurs:
+2. Les utilisateurs:  
 Un utilisateur dispose des droits du visiteur, il peut modifier en plus ses identifiants et aussi modifier ses commentaires.  
 
 3. Les écrivains:  
