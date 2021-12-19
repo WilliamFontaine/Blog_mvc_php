@@ -20,7 +20,7 @@ Un visiteur est une personne visitant le site sans se connecter, il peut consult
 Un utilisateur dispose des droits du visiteur, il peut modifier en plus ses identifiants et aussi modifier ses commentaires.  
 
 3. Les écrivains:  
-Un écrivain peut en plus écrire des articles, les modifiers et supprimer les siens.  
+Un écrivain peut en plus écrire des articles, les modifiers et les supprimer, mais uniquement les siens.  
 
 4. Les administrateurs:  
 Un administrateur peut en plus supprmier tous les articles et commentaires. Il peut aussi créer des visiteurs, des utilisateurs, des écrivains et des administrateurs.  
