@@ -23,7 +23,8 @@ Un utilisateur dispose des droits du visiteur, il peut modifier en plus ses iden
 Un écrivain peut en plus écrire des articles, les modifiers et les supprimer, mais uniquement les siens.  
 
 4. Les administrateurs:  
-Un administrateur peut en plus supprmier tous les articles et commentaires. Il peut aussi créer des visiteurs, des utilisateurs, des écrivains et des administrateurs.  
+Un administrateur peut en plus supprmier tous les articles et commentaires.   
+Il peut aussi créer des visiteurs, des utilisateurs, des écrivains et des administrateurs.  
 
 5. Les super-administrateurs:  
 Un super-administrateur dispose des mêmes droites qu'un utilisateur et peut aussi créer d'autres super-administrateurs. Il ne peut pas supprmier son compte.
