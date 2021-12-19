@@ -11,7 +11,7 @@
 
 ### Différents utilisateurs:  
 
-* Sur le site, il y a différent type d'utilisateur, on a d'abord les **visiteurs**, les **utilisateurs**,les **écrivains**, les **administrateurs** et les **super-admin**.  
+* Sur le site, il y a différent type d'utilisateur, on a d'abord les **visiteurs**, les **utilisateurs**, les **écrivains**, les **administrateurs** et les **super-admin**.  
 
 1. Les visiteurs:  
 Un visiteur est une personne visitant le site sans se connecter, il peut consulter le site et commenter des articles.  
