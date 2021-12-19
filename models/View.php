@@ -24,7 +24,7 @@ class View
     {
         //Partie spécifique de la vue en question
         $content = $this->generateFile($this->_file, $data);
-        $view = $this->generateFile('views/template.php', array('t' => $this->_t,
+        $view = $this->generateFile('templates/template.php', array('t' => $this->_t,
             'content' => $content));
         echo $view;
     }
@@ -51,7 +51,7 @@ class View
     {
         //Partie spécifique de la vue en question
         $content = $this->generateFile($this->_file, $data);
-        $view = $this->generateFile('views/templateEmpty.php', array('t' => $this->_t,
+        $view = $this->generateFile('templates/templateEmpty.php', array('t' => $this->_t,
             'content' => $content));
         echo $view;
     }
