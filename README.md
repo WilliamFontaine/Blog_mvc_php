@@ -4,9 +4,9 @@
 
 * Dans un permier temps, il faut exécuter le fichier `projet_blog.sql` dans wamp/xamp/mamp pour insérer la base de données du blog.  
  
-* Dans un second temps, on exécute le fichier `utilisateur.sql` pour ajouter l'utilisateur qui utilise la base de données. 
+* Dans un second temps, on exécute le fichier `utilisateur.sql` pour ajouter l'utilisateur qui se connecte la base de données. 
 
-* Ensuite, il suffit de lancer wamp/xamp/mamp et de lancer le fichier index.php pour faire fonctionner le site.  
+* Ensuite, il suffit de lancer wamp/xamp/mamp et de lancer le fichier index.php pour faire fonctionner le site. Ce dernier fonctionne intégralement depuis le fichier index.php grâce au routeur.  
 
 
 ### Différents utilisateurs:  
