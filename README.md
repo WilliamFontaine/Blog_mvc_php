@@ -1,6 +1,6 @@
 # Blog_mvc_php
 
-### Configuration:
+## Configuration:
 
 * Dans un permier temps, il faut exécuter le fichier `projet_blog.sql` dans wamp/xamp/mamp pour insérer la base de données du blog.  
  
@@ -9,7 +9,7 @@
 * Ensuite, il suffit de lancer wamp/xamp/mamp et de lancer le fichier index.php pour faire fonctionner le site. Ce dernier fonctionne intégralement depuis le fichier index.php grâce au routeur.  
 
 
-### Différents utilisateurs:  
+## Différents utilisateurs:  
 
 * Sur le site, il y a différent type d'utilisateur, on a d'abord les **visiteurs**, les **utilisateurs**, les **écrivains**, les **administrateurs** et les **super-admin**.  
 
