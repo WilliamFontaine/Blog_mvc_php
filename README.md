@@ -28,4 +28,23 @@ Il peut aussi créer des visiteurs, des utilisateurs, des écrivains et des admi
 
 5. Les super-administrateurs:  
 Un super-administrateur dispose des mêmes droites qu'un utilisateur et peut aussi créer d'autres super-administrateurs.   
-Il ne peut pas supprmier son compte.
+Il ne peut pas supprmier son compte.  
+
+
+## Identifiants:  
+
+> Utilisateur:
+username: user  
+password: user  
+
+> Ecrivain:  
+username: ecrivain  
+password: ecrivain  
+
+> Admin:  
+username: admin  
+password: admin  
+
+> Super-admin:  
+username: super-admin  
+password: super-admin
