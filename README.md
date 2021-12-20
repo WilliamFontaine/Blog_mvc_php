@@ -33,7 +33,7 @@ Il ne peut pas supprmier son compte.
 
 ## Identifiants:  
 
-> Utilisateur:
+> Utilisateur:  
 username: user  
 password: user  
 
