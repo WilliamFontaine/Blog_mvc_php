@@ -22,36 +22,29 @@ class Router
                 if (in_array($url[0], $listeAction["Visiteur"])) {
                     $controller = "Visiteur";
                 }
-                if (in_array($url[0], $listeAction["User"])) {
+                else if (in_array($url[0], $listeAction["User"])) {
                     $controller = "User";
                 }
-                if (in_array($url[0], $listeAction["Ecrivain"])) {
+                else if (in_array($url[0], $listeAction["Ecrivain"])) {
                     $controller = "Ecrivain";
                 }
-                if (in_array($url[0], $listeAction["Admin"])) {
+                else if (in_array($url[0], $listeAction["Admin"])) {
                     $controller = "Admin";
                 }
-                if (!isset($controller)) {
+                else{
                     throw new Exception("L'action requise est inconnue !");
                 }
-                if ($controller == "User") {
+
+                if ($controller != "Visiteur") {
                     if (!isset($_SESSION['type'])) {
                         if ($url[0] != "register")
-                            $url[0] = "connexionUser";
+                            $url[0] = "connexion";
                     }
                 }
-                if ($controller == "Ecrivain") {
-                    if (!isset($_SESSION['type']) or $_SESSION["type"] != ("admin" and "ecrivain" and "super-admin")) {
-                        $url[0] = "connexionEcrivain";
-                    }
-                }
-                if ($controller == "Admin") {
-                    if (!isset($_SESSION['type']) or $_SESSION["type"] != ("admin" and "super-admin")) {
-                        $url[0] = "connexionAdmin";
-                    }
-                }
+
                 $controllerClass = "Controller" . $controller;
                 $controllerFile = "controllers/" . $controllerClass . ".php";
+
                 if (file_exists($controllerFile)) {
                     $this->_ctrl = new $controllerClass($url);
                 } else {

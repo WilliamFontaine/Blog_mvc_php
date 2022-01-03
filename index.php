@@ -1,4 +1,4 @@
--<?php
+<?php
 session_start();
 //define('URL', str_replace("index.php", "", (isset($_SERVER['HTTPS']) ? "https" : "http") ."://$_SERVER[PHP_HOST]$_SERVER[PHP_SELF]"));
 
@@ -11,4 +11,7 @@ Autoloader::charger();
 require_once(__DIR__ . '/controllers/Routeur.php');
 
 $routeur = new Router();
-$routeur->routeReq();
+try {
+    $routeur->routeReq();
+} catch (Exception $e) {
+}
