@@ -43,7 +43,7 @@ class GatewayArticle extends Gateway
      * @param $titre
      * @param $contenu
      */
-    protected function midifierOneArticle($id, $titre, $contenu)
+    protected function modifierOneArticle($id, $titre, $contenu)
     {
         $req = $this->getBdd()->prepare("UPDATE articles SET titre = ?, contenu = ? WHERE id = ?");
         $req->execute([$titre, $contenu, $id]);

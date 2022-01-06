@@ -167,14 +167,4 @@ class ControllerUser
         $this->_view = new View("SuppComment");
         $this->_view->generate(['comm' => $comm]);
     }
-
-    /**
-     * Méthode permettant d'instancier une page de connexion avec un pessage de succès après le bon enregistrement d'un utilisateur.
-     * @param $dVueSuccess
-     */
-    private function connexionAfterSuccesRegister($dVueSuccess)
-    {
-        $this->_view = new View('Login');
-        $this->_view->generateEmpty(['dVueSuccess' => $dVueSuccess]);
-    }
 }

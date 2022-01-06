@@ -40,6 +40,16 @@ class Router
                         if ($url[0] != "register")
                             $url[0] = "connexion";
                     }
+                    else if($controller == 'Ecrivain' and $_SESSION['type'] == 'user'){
+                        throw new Exception("Vous n'avez pas les droits nécessaires pour accéder à cette page !");
+                    }
+                    else if ($controller == "Admin" and ($_SESSION['type'] != 'admin' and  $_SESSION['type'] != 'super-admin')){
+                        throw new Exception("Vous n'avez pas les droits nécessaires pour accéder à cette page !");
+                    }
+                }
+
+                if($controller == 'User' and !isset($_SESSION['type'])){
+                    $url[0] = "connexion";
                 }
 
                 $controllerClass = "Controller" . $controller;

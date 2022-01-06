@@ -4,13 +4,13 @@ class ArticleManager extends GatewayArticle
 {
     /**
      * Méthode permettant de retourner un article si un id est renseigné, sinon, tous les articles.
-     * @param int $id
+     * @param  $id
      * @return array
      * @throws Exception
      */
-    public function getArticle(int $id = 0): array
+    public function getArticle($id = NULL): array
     {
-        if ($id != 0) {
+        if ($id != NULL) {
             return $this->getOneArticle($id);
         } else {
             return $this->getAllArticles();
@@ -25,7 +25,7 @@ class ArticleManager extends GatewayArticle
      */
     public function modifArticle($id, $titre, $contenu)
     {
-        $this->midifierOneArticle($id, $titre, $contenu);
+        $this->modifierOneArticle($id, $titre, $contenu);
     }
 
     /**
