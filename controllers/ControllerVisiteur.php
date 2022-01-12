@@ -74,7 +74,7 @@ class ControllerVisiteur
         }
         ValidationComment::val_form($nom, $comment, $dVueErreur);
         if (!empty($dVueErreur)) {
-            throw new Exception("$dVueErreur");
+            throw new Exception($dVueErreur[0]);
         }
         if (isset($type))
             $this->_manager->insertOne($nom, $type, $idArticle, $comment);

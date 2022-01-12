@@ -16,9 +16,6 @@ class ValidationComment
             $dataVueErreur[] = "Le pseudo doit être renseigné.";
             $commentaire = "";
         }
-        if ($commentaire != filter_var($commentaire, FILTER_SANITIZE_STRING)) {
-            $dataVueErreur[] = "Tentative d'injection de code.";
-            $commentaire = "";
-        }
+//        -
     }
 }

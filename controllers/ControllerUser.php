@@ -59,7 +59,6 @@ class ControllerUser
         ValidationModifUser::val_formPseudo($nom, $dVueErreur);
         if (!empty($dVueErreur)) {
             $this->pageUser($dVueErreur);
-            return;
         } else {
             $this->_manager->modifPSeudo($_SESSION['username'], $nom);
             $dVueSuccess = ["Pseudo modifié avec succès !"];
